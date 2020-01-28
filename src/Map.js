@@ -10,13 +10,15 @@ class Map extends Component {
       data: null,
       viewport: {
         width: "100%",
-        height: "50vh",
+        height: "70vh",
         latitude: -28.0167,
         longitude: 153.380,
         zoom: 12
       }
     };
   }
+
+
 
   render() {
         return (
