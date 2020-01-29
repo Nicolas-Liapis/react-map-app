@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ReactMapGL, {Source, Layer} from 'react-map-gl';
 import {dataLayer} from './map-styles.js';
 
+const MAPBOX_TOKEN = 'pk.eyJ1Ijoibmljb2xhcy1saWFwaXMiLCJhIjoiY2s1d283a2p6MGIzNjNvbnhja2h4NjdidCJ9.jds1Nl6CiXj1p9za1K4iGw';
+
 class Map extends Component {
 
   constructor(props) {
@@ -23,8 +25,10 @@ class Map extends Component {
           <div id="map-container">
             <ReactMapGL
                     {...this.state.viewport}
-                    mapboxApiAccessToken={'pk.eyJ1Ijoibmljb2xhcy1saWFwaXMiLCJhIjoiY2s1d283a2p6MGIzNjNvbnhja2h4NjdidCJ9.jds1Nl6CiXj1p9za1K4iGw'}
-                    onViewportChange={(viewport) => this.setState({viewport})}
+                    mapboxApiAccessToken={MAPBOX_TOKEN}
+                    onViewportChange={
+                      (viewport) => this.setState({viewport})
+                    }
                   >
               <Source type="geojson" data={this.props.data}>
               <Layer {...dataLayer} />

@@ -11,6 +11,7 @@ class Home extends Component {
         super(props);
         this.state = {
             materials: null,
+            material: null,
             data: null,
             newData: null,
             from: 0,
@@ -81,10 +82,9 @@ class Home extends Component {
 
   controlMat = (mat) => {
       if(mat === 'all') {
-        this.props.material(null);
         this.filterData(this.state.from, this.state.to, null)
       } else {
-        this.props.material(mat);
+        this.setState({material: mat});
         this.filterData(this.state.from, this.state.to, mat)
       } 
   }
@@ -93,8 +93,8 @@ class Home extends Component {
         let len;
         if (this.state.newData) {
              len= this.state.newData.features.length;
-        } else {
-            len = 106;
+        } else if(this.state.data){
+            len = this.state.data.features.length;
         }
         return (
             <div>
@@ -105,16 +105,16 @@ class Home extends Component {
     }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
-        material: state.material
+        
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        material: mat => dispatch(dataActions.material(mat))
+        
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home) ;
+export default connect(mapStateToProps, mapDispatchToProps )(Home) ;
