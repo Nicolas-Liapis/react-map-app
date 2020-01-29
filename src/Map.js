@@ -18,8 +18,6 @@ class Map extends Component {
     };
   }
 
-
-
   render() {
         return (
           <div id="map-container">

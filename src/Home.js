@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Map from './Map';
 import Control from './Control';
 import {json as requestJson} from 'd3-request';
+import { connect } from 'react-redux';
+import * as dataActions from './redux/actions/dataActions';
 
 class Home extends Component {
 
@@ -11,7 +13,6 @@ class Home extends Component {
             materials: null,
             data: null,
             newData: null,
-            material: null,
             from: 0,
             to: 526
         };
@@ -31,7 +32,7 @@ class Home extends Component {
   }
   
   loadData = data => {
-    this.setState({data: data});
+    this.setState({data});
   };
 
   filterData(from, to, material) {
@@ -80,10 +81,10 @@ class Home extends Component {
 
   controlMat = (mat) => {
       if(mat === 'all') {
-        this.setState({material: null});
+        this.props.material(null);
         this.filterData(this.state.from, this.state.to, null)
       } else {
-        this.setState({material: mat});
+        this.props.material(mat);
         this.filterData(this.state.from, this.state.to, mat)
       } 
   }
@@ -98,10 +99,22 @@ class Home extends Component {
         return (
             <div>
                 <Map data={this.state.newData ? this.state.newData : this.state.data} />
-                <Control length={len} cbMat={this.controlMat} cbSize={this.controlSize} data={this.state.data} materials={this.state.materials}/>
+                <Control length={len} cbMat={this.controlMat} cbSize={this.controlSize} materials={this.state.materials}/>
             </div>
         );
     }
 }
 
-export default Home;
+function mapStateToProps(state, ownProps) {
+    return {
+        material: state.material
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        material: mat => dispatch(dataActions.material(mat))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home) ;

@@ -5,7 +5,6 @@ class Control extends Component {
     
   constructor(props) {
     super(props);
-    this.handleClickSize = this.handleClickSize.bind(this);
     this.state = {
       size: 'all',
       material: 'all'
